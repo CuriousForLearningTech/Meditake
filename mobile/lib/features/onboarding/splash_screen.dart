@@ -20,7 +20,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   Future<void> _initApp() async {
     // Artificial delay for splash feel
-    await Future.delayed(const Duration(milliseconds: 2500));
+    await Future.delayed(const Duration(milliseconds: 12500));
 
     if (!mounted) return;
 
