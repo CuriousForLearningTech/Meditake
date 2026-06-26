@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
-import './app.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'app.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
-  runApp(const MyApp());
-}
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  // Set premium status bar
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  );
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Meditake App',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.lightBlue),
-      ),
-      home: const MyHomePage(title: 'Meditake'),
-    );
-  }
+  runApp(
+    ProviderScope(
+      child: App(),
+    ),
+  );
 }
