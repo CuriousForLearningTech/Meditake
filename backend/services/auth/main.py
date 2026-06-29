@@ -2,6 +2,10 @@ from concurrent import futures
 import logging
 import grpc
 
+from common.logging import setup_logging
+setup_logging()
+logger = logging.getLogger(__name__)
+
 from generated import auth_pb2
 from generated import auth_pb2_grpc
 from services.auth.logic import (
@@ -57,10 +61,9 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     auth_pb2_grpc.add_AuthServiceServicer_to_server(AuthServicer(), server)
     server.add_insecure_port('[::]:50052')
-    logging.info("Auth gRPC server started, listening on 50052")
+    logger.info("Auth gRPC server started, listening on 50052")
     server.start()
     server.wait_for_termination()
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
     serve()

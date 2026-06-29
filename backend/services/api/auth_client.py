@@ -1,6 +1,7 @@
 import grpc
 import logging
 
+logger = logging.getLogger(__name__)
 from generated import auth_pb2
 from generated import auth_pb2_grpc
 
@@ -18,15 +19,15 @@ class AuthGRPCClient:
         try:
             return self.stub.Register(request)
         except grpc.RpcError as e:
-            logging.error(f"gRPC Register call failed: {e.code()} - {e.details()}")
-            return None
+            logger.error(f"gRPC Register call failed: {e.code()} - {e.details()}")
+        return None
 
     def login(self, username, password):
         request = auth_pb2.LoginRequest(username=username, password=password)
         try:
             return self.stub.Login(request)
         except grpc.RpcError as e:
-            logging.error(f"gRPC Login call failed: {e.code()} - {e.details()}")
+            logger.error(f"gRPC Login call failed: {e.code()} - {e.details()}")
             return None
 
     def validate_token(self, token):
@@ -34,7 +35,7 @@ class AuthGRPCClient:
         try:
             return self.stub.ValidateToken(request)
         except grpc.RpcError as e:
-            logging.error(f"gRPC ValidateToken call failed: {e.code()} - {e.details()}")
+            logger.error(f"gRPC ValidateToken call failed: {e.code()} - {e.details()}")
             return None
 
     def close(self):
