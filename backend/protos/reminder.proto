@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package reminder;
+
+// The Reminder service definition.
+service ReminderService {
+  // Triggers the daily scheduling algorithm to process mediations
+  // for the next day.
+  rpc TriggerScheduling (TriggerRequest) returns (TriggerResponse) {}
+}
+
+// The request message containing the target date or trigger context
+message TriggerRequest {
+  string target_date = 1; // Expected format: YYYY-MM-DD
+}
+
+// The response message containing the status of the trigger
+message TriggerResponse {
+  bool success = 1;
+  string message = 2;
+  int32 scheduled_jobs_count = 3;
+}
