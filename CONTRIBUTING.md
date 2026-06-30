@@ -33,21 +33,24 @@ The MediTake repository is a monorepo structured as follows:
 
 To contribute to MediTake, you should set up the components you wish to work on. Below are the steps for setting up each module.
 
-### 1. Backend Setup (FastAPI)
+### 1. Backend Setup (Microservices)
+
 
 #### Prerequisites
-* Python 3.11 or later
-* PostgreSQL installed and running (or you can modify `database.py` to point to a local SQLite/PostgreSQL instance)
+* [uv](https://github.com/astral-sh/uv) installed
+* Docker and Docker Compose (for databases and infrastructure)
 
 #### Setup Steps
-1. Navigate to the backend directory:
+1. Start required infrastructure (e.g., Database) using Docker Compose from the root directory:
    ```bash
    cd backend
+   docker-compose up -d
    ```
-2. Create a virtual environment:
+2. Sync dependencies using `uv`:
    ```bash
-   python -m venv .venv
+   uv sync
    ```
+
 3. Activate the virtual environment:
    * **Windows (PowerShell):**
      ```powershell
@@ -57,17 +60,10 @@ To contribute to MediTake, you should set up the components you wish to work on.
      ```bash
      source .venv/bin/activate
      ```
-4. Install the required dependencies:
+4. Start the service (example using `uv run`):
    ```bash
-   pip install -r requirements.txt
+   uv run fastapi dev services/{api}/main.py
    ```
-5. Configure the Database connection in [database.py](backend/database.py). By default, it looks for a PostgreSQL database at `postgresql://postgres:Bright#1270@localhost/fastapi`.
-6. Start the development server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-   The API documentation will be available at [http://127:0.0.1:8000/docs](http://127.0.0.1:8000/docs).
-
 ---
 
 ### 2. Web Frontend Setup (Next.js)
