@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package prescription;
+
+service PrescriptionService {
+    rpc GetPrescription (PrescriptionRequest) returns (PrescriptionResponse) {}
+}
+
+message PrescriptionRequest {
+    string id = 1;
+}
+
+message PrescriptionResponse {
+    string id = 1;
+    string user_id = 2;
+    string medicine_id = 3;
+    string dosage = 4;
+}
