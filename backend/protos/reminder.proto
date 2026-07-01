@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package reminder;
+
+service ReminderService {
+    rpc SetReminder (ReminderRequest) returns (ReminderResponse) {}
+}
+
+message ReminderRequest {
+    string prescription_id = 1;
+    string time = 2;
+}
+
+message ReminderResponse {
+    bool success = 1;
+    string reminder_id = 2;
+}
