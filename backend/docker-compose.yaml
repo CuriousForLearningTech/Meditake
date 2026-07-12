@@ -11,7 +11,7 @@ services:
             - "${POSTGRES_PORT}:5432"
         volumes:
             - postgres_data:/var/lib/postgresql
-
+            - ./database/schema:/docker-entrypoint-initdb.d
     # api:
     #     build: .
     #     container_name: Meditake_API
