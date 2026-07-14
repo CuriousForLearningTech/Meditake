@@ -1,10 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from services.api.config import setting
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:Bright#1270@localhost/fastapi'
-
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+engine = create_engine(str(setting.db_dns))
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

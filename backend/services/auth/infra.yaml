@@ -1,0 +1,7 @@
+services:
+  auth:
+    build: .
+    container_name: Meditake_Auth
+    ports:
+        - "50052:50052"
+    command: uv run python -m services.auth

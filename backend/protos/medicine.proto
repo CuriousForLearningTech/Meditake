@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package medicine;
+
+service MedicineService {
+    rpc GetMedicineInfo (MedicineRequest) returns (MedicineResponse) {}
+    rpc ListMedicines (EmptyRequest) returns (MedicineListResponse) {}
+}
+
+message EmptyRequest {}
+
+message MedicineRequest {
+    string id = 1;
+}
+
+message MedicineResponse {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message MedicineListResponse {
+    repeated MedicineResponse medicines = 1;
+}

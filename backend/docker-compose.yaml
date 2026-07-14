@@ -1,0 +1,65 @@
+
+services:
+    database:
+        image: postgres
+        container_name: Meditake_DB
+        restart: always
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+            - "${POSTGRES_PORT}:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql
+            - ./database/schema:/docker-entrypoint-initdb.d
+    # api:
+    #     build: .
+    #     container_name: Meditake_API
+    #     ports:
+    #         - "8000:8000"
+    #     command: uv run uvicorn services.api.main:app --host 0.0.0.0 --port 8000
+    #     depends_on:
+    #         - auth
+    #         - medicine
+    #         - notification
+    #         - prescription
+    #         - reminder
+
+    # auth:
+    #     build: .
+    #     container_name: Meditake_Auth
+    #     ports:
+    #         - "50052:50052"
+    #     command: uv run python -m services.auth
+
+    # medicine:
+    #     build: .
+    #     container_name: Meditake_Medicine
+    #     ports:
+    #         - "50053:50053"
+    #     command: uv run python -m services.medicine
+
+    # notification:
+    #     build: .
+    #     container_name: Meditake_Notification
+    #     ports:
+    #         - "50054:50054"
+    #     command: uv run python -m services.notification
+
+    # prescription:
+    #     build: .
+    #     container_name: Meditake_Prescription
+    #     ports:
+    #         - "50055:50055"
+    #     command: uv run python -m services.prescription
+
+    # reminder:
+    #     build: .
+    #     container_name: Meditake_Reminder
+    #     ports:
+    #         - "50056:50056"
+    #     command: uv run python -m services.reminder
+
+volumes:
+    postgres_data:
